@@ -12,7 +12,6 @@ export function PublicLayout({ children, url }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="/static/main.css" />
-        <script type="module" src="/static/main.js"></script>
       </head>
       <body>
         <header>

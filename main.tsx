@@ -1,6 +1,21 @@
 /** @jsx h */
-import { h, jsx, serve, serveStatic } from "./deps.ts";
+import { h, jsx, serve, serveStatic } from "sift";
 import { PublicLayout } from "./components/public-layout.tsx";
+import { Database, MySQLConnector } from "denodb";
+import { ContactFormSubmission, GardenPost, Page, Post } from "./models.ts";
+
+const connector = new MySQLConnector({
+  host: Deno.env.get("DB_HOST"),
+  database: Deno.env.get("DB_DATABASE"),
+  username: Deno.env.get("DB_USERNAME"),
+  password: Deno.env.get("DB_PASSWORD"),
+});
+
+const db = new Database(connector);
+
+db.link([Page, Post, GardenPost, ContactFormSubmission]);
+
+db.sync({ drop: true });
 
 serve({
   "/": (request) =>
@@ -9,21 +24,6 @@ serve({
         <h1>Hello, World!</h1>
       </PublicLayout>,
     ),
-  //"/healthcheck": async (request) => {
-  //  const log = await prisma.log.create({
-  //    data: {
-  //      level: 'Info',
-  //      message: `${request.method} ${request.url}`,
-  //      meta: {
-  //        headers: JSON.stringify(request.headers),
-  //      },
-  //    },
-  //  })
-  //  const body = JSON.stringify(log, null, 2)
-  //  return new Response(body, {
-  //    headers: { 'content-type': 'application/json; charset=utf-8' },
-  //  })
-  //},
   "/contact": async (request) => {
     if (request.method === "POST") {
       console.log(Object.fromEntries(await request.formData()));

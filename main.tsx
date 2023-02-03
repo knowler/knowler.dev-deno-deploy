@@ -1,21 +1,20 @@
 /** @jsx h */
 import { h, jsx, serve, serveStatic } from "sift";
 import { PublicLayout } from "./components/public-layout.tsx";
-import { Database, MySQLConnector } from "denodb";
+import { Database } from "denodb";
 import { ContactFormSubmission, GardenPost, Page, Post } from "./models.ts";
 
-const connector = new MySQLConnector({
-  host: Deno.env.get("DB_HOST"),
-  database: Deno.env.get("DB_DATABASE"),
-  username: Deno.env.get("DB_USERNAME"),
-  password: Deno.env.get("DB_PASSWORD"),
+import { PlanetScaleConnector } from "./planetscale-connector.ts";
+
+const connector = new PlanetScaleConnector({
+  url: Deno.env.get("DATABASE_URL"),
 });
 
-const db = new Database(connector);
+const db = new Database(connector, true);
 
 db.link([Page, Post, GardenPost, ContactFormSubmission]);
 
-db.sync({ drop: true });
+db.sync();
 
 serve({
   "/": (request) =>

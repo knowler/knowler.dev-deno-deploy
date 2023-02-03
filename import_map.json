@@ -1,6 +1,8 @@
 {
   "imports": {
+    "@planetscale/database": "npm:@planetscale/database@^1.4",
     "denodb": "https://deno.land/x/denodb@v1.2.0/mod.ts",
+    "denodb/": "https://deno.land/x/denodb@v1.2.0/",
     "sift": "https://deno.land/x/sift@0.6.0/mod.ts"
   }
 }

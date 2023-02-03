@@ -510,11 +510,16 @@
   },
   "npm": {
     "specifiers": {
+      "@planetscale/database@^1.4": "@planetscale/database@1.5.0",
       "prisma": "prisma@4.9.0",
       "tiny-invariant": "tiny-invariant@1.3.1",
       "vhtml@2.2.0": "vhtml@2.2.0"
     },
     "packages": {
+      "@planetscale/database@1.5.0": {
+        "integrity": "sha512-Qwh7Or1W5dB5mZ9EQqDkgvkDKhBBmQe58KIVUy0SGocNtr5fP4JAWtvZ6EdLAV6C6hVpzNlCA2xIg9lKTswm1Q==",
+        "dependencies": {}
+      },
       "@prisma/engines@4.9.0": {
         "integrity": "sha512-t1pt0Gsp+HcgPJrHFc+d/ZSAaKKWar2G/iakrE07yeKPNavDP3iVKPpfXP22OTCHZUWf7OelwKJxQgKAm5hkgw==",
         "dependencies": {}

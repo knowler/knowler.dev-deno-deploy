@@ -1,6 +1,7 @@
 import { DataTypes, Model } from "denodb";
 
 export class Page extends Model {
+  static table = "Page";
   static timestamps = true;
 
   static fields = {
@@ -22,6 +23,7 @@ export class Page extends Model {
 }
 
 export class Post extends Model {
+  static table = "Post";
   static timestamps = true;
 
   static fields = {
@@ -43,6 +45,7 @@ export class Post extends Model {
 }
 
 export class GardenPost extends Model {
+  static table = "GardenPost";
   static timestamps = true;
 
   static fields = {
@@ -58,6 +61,7 @@ export class GardenPost extends Model {
 }
 
 export class ContactFormSubmission extends Model {
+  static table = "ContactFormSubmission";
   static timestamps = true;
 
   static fields = {

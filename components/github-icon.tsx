@@ -18,4 +18,3 @@ export function GitHubIcon(props) {
     </svg>
   );
 }
-

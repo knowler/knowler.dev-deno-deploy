@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from "sift";
-import { GitHubIcon } from "./github-icon.jsx";
-import { MastodonIcon } from "./mastodon-icon.jsx";
+import { GitHubIcon } from "./github-icon.tsx";
+import { MastodonIcon } from "./mastodon-icon.tsx";
 
 export function PublicLayout({ children, url }) {
   const NavLink = UnboundNavLink.bind(url);

@@ -1,5 +1,5 @@
 /** @jsx h */
-import { h } from "sift"
+import { h } from "sift";
 
 export function MastodonIcon(props) {
   return (

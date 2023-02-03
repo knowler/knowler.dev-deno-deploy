@@ -1,5 +1,8 @@
 import { Connector } from "denodb";
-import { cast, Client as PlanetScaleClient } from "@planetscale/database";
+import {
+  cast,
+  Client as PlanetScaleClient,
+} from "npm:@planetscale/database@^1.4";
 import { ConnectorOptions } from "denodb/lib/connectors/connector.ts";
 import { SQLTranslator } from "denodb/lib/translators/sql-translator.ts";
 import { SupportedSQLDatabaseDialect } from "denodb/lib/translators/sql-translator.ts";

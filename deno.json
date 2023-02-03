@@ -1,8 +1,9 @@
 {
   "tasks": {
-    "dev": "deno run --allow-read=./static --allow-env --allow-net --import-map deno.json --watch main.tsx"
+    "dev": "deno run --allow-read=./static --allow-env --allow-net --watch main.tsx"
   },
   "imports": {
-    "sift": "https://deno.land/x/sift@0.6.0/mod.ts"
+    "sift": "https://deno.land/x/sift@0.6.0/mod.ts",
+    "sift/": "https://deno.land/x/sift@0.6.0/"
   }
 }

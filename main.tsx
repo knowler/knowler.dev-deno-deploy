@@ -1,5 +1,5 @@
 /** @jsx h */
-import { h, jsx, serve, serveStatic } from "sift";
+import { h, jsx, serve, serveStatic } from "./deps.ts";
 import { PublicLayout } from "./components/public-layout.tsx";
 
 serve({

@@ -1,5 +1,5 @@
 /** @jsx h */
-import { h } from "sift";
+import { h } from "../deps.ts";
 
 export function GitHubIcon(props) {
   return (

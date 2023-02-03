@@ -1,5 +1,5 @@
 /** @jsx h */
-import { h } from "sift";
+import { h } from "../deps.ts";
 import { GitHubIcon } from "./github-icon.tsx";
 import { MastodonIcon } from "./mastodon-icon.tsx";
 

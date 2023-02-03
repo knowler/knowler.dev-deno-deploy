@@ -5,6 +5,7 @@ import { Database } from "denodb";
 import { ContactFormSubmission, GardenPost, Page, Post } from "./models.ts";
 
 import { PlanetScaleConnector } from "./planetscale-connector.ts";
+import { adminRoutes } from "./admin.tsx";
 
 const connector = new PlanetScaleConnector({
   url: Deno.env.get("DATABASE_URL"),
@@ -14,16 +15,18 @@ const db = new Database(connector, true);
 
 db.link([Page, Post, GardenPost, ContactFormSubmission]);
 
-db.sync();
+//db.sync({ drop: true });
 
 serve({
+  //...adminRoutes,
+
   "/": (request) =>
     jsx(
       <PublicLayout url={new URL(request.url)}>
         <h1>Hello, World!</h1>
       </PublicLayout>,
     ),
-  "/contact": async (request) => {
+  "/contact{/}?": async (request) => {
     if (request.method === "POST") {
       console.log(Object.fromEntries(await request.formData()));
     }
@@ -49,8 +52,11 @@ serve({
       </PublicLayout>,
     );
   },
-  "/:slug": (request, _, params) => {
-    const page = findPage(params?.slug);
+  "/:slug{/}?": async (request, _, params) => {
+    const page = await Page.where({
+      slug: params?.slug,
+      published: true,
+    }).first();
 
     if (!page) return new Response("Not found!", { status: 404 });
 
@@ -60,39 +66,12 @@ serve({
       </PublicLayout>,
     );
   },
-  "/blog/:slug": () => jsx(<h1>Blog Post</h1>),
-  "/garden/:slug": () => jsx(<h1>Garden</h1>),
+  "/blog/:slug{/}?": () => jsx(<h1>Blog Post</h1>),
+  "/garden/:slug{/}?": () => jsx(<h1>Garden</h1>),
   "/static/:filename+": serveStatic("./static", {
     baseUrl: import.meta.url,
   }),
 });
-
-function findPage(slug) {
-  const pages = [
-    {
-      slug: "about",
-      title: "About",
-    },
-    {
-      slug: "blog",
-      title: "Blog",
-    },
-    {
-      slug: "garden",
-      title: "Digital Garden",
-    },
-    {
-      slug: "uses",
-      title: "Uses",
-    },
-    {
-      slug: "webmention",
-      title: "Webmention",
-    },
-  ];
-
-  return pages.find((page) => page.slug === slug);
-}
 
 /* Private */
 

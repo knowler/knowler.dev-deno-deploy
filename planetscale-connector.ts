@@ -1,5 +1,5 @@
 import { Connector } from "denodb";
-import { Client as PlanetScaleClient } from "@planetscale/database";
+import { cast, Client as PlanetScaleClient } from "@planetscale/database";
 import { ConnectorOptions } from "denodb/lib/connectors/connector.ts";
 import { SQLTranslator } from "denodb/lib/translators/sql-translator.ts";
 import { SupportedSQLDatabaseDialect } from "denodb/lib/translators/sql-translator.ts";
@@ -19,7 +19,10 @@ export class PlanetScaleConnector implements Connector {
 
   constructor(options: PlanetScaleOptions) {
     this._options = options;
-    this._client = new PlanetScaleClient(this._options);
+    this._client = new PlanetScaleClient({
+      cast: inflate,
+      ...this._options,
+    });
     this._connected = true;
     this._translator = new SQLTranslator(this._dialect);
   }
@@ -40,18 +43,9 @@ export class PlanetScaleConnector implements Connector {
     queryDescription: QueryDescription,
   ): Promise<any | any[]> {
     const query = this._translator.translateToQuery(queryDescription);
-    console.log(query + "\n\n");
-    const subqueries = query.split(/;(?=(?:[^'"]|'[^']*'|"[^"]*")*$)/);
+    const result = await this._client.execute(query);
 
-    for (let i = 0; i < subqueries.length; i++) {
-      console.log(subqueries[i] + "\n\n");
-      const result = await this._client.execute(subqueries[i]);
-      console.log(result);
-
-      if (i === subqueries.length - 1) {
-        return result;
-      }
-    }
+    return result?.rows;
   }
 
   transaction(queries: () => Promise<void>) {
@@ -60,4 +54,11 @@ export class PlanetScaleConnector implements Connector {
 
   // Does nothing because the driver doesn’t allow us to disconnect.
   async close() {}
+}
+
+function inflate(field, value) {
+  if (field.type === "INT64" || field.type === "UINT64") {
+    return BigInt(value);
+  }
+  return cast(field, value);
 }

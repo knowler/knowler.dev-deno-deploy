@@ -1,0 +1,47 @@
+html {
+  font-family: system-ui;
+  color-scheme: dark;
+}
+
+header > nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+header > nav > ul {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-inline-start: 0;
+  margin-block: 0;
+  list-style: none;
+}
+
+header > nav svg {
+  block-size: 2em;
+}
+
+form {
+  display: grid;
+  gap: 1rem;
+  justify-content: start;
+}
+
+form-field {
+  display: grid;
+  gap: 0.5rem;
+  justify-content: start;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}

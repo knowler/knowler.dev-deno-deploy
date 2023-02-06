@@ -1,7 +1,8 @@
 /** @jsx h */
 import { h } from "sift";
+import { NavLink as UnboundNavLink } from "../components/nav-link.tsx";
 
-export function PublicLayout({ children, url }) {
+export function Layout({ children, head, url }) {
   const NavLink = UnboundNavLink.bind(url);
 
   return (
@@ -10,6 +11,7 @@ export function PublicLayout({ children, url }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="/static/main.css" />
+        {head}
       </head>
       <body>
         <header>
@@ -60,14 +62,6 @@ export function PublicLayout({ children, url }) {
         </footer>
       </body>
     </html>
-  );
-}
-
-function UnboundNavLink({ to, children }) {
-  return (
-    <a href={to} aria-current={this.pathname === to ? "page" : undefined}>
-      {children}
-    </a>
   );
 }
 

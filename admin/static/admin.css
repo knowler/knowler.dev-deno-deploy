@@ -5,3 +5,7 @@ html {
 form-field {
   display: block;
 }
+
+a[aria-current="page"] {
+  text-decoration: none;
+}

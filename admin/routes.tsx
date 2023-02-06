@@ -1,31 +1,41 @@
 /** @jsx h */
-import { h, json, jsx } from "sift";
+import { h, json, jsx, serveStatic } from "sift";
 import type { Routes } from "sift";
-import { Page, Post } from "./models.ts";
-import { AdminLayout } from "./components/admin-layout.tsx";
+import { Page, Post } from "../models.ts";
+import { Layout } from "./layout.tsx";
 
 export const adminRoutes: Routes = {
-  "/admin{/}?": () => {
-    return json({ message: "I am the admin" });
+  "/admin{/}?": (request) => {
+    return jsx(
+      <Layout url={new URL(request.url)}>
+        <h1>Dashboard</h1>
+      </Layout>,
+    );
   },
 
-  "/admin/:collection{/}?": async (_request, _connInfo, params) => {
+  "/admin/static/:filename+": serveStatic("static", {
+    baseUrl: import.meta.url,
+  }),
+
+  "/admin/:collection{/}?": async (request, _connInfo, params) => {
     const collection = getCollection(params?.collection);
 
     if (!collection) return json("Oopsie");
 
-    const pages = await collection.all();
+    const items = await collection.all();
 
     return jsx(
-      <AdminLayout>
+      <Layout url={new URL(request.url)}>
         <ul>
-          {pages.map((page) => (
+          {items.map((item) => (
             <li>
-              <a href={`/admin/pages/${page.id}/`}>{page.title}</a>
+              <a href={`/admin/${params?.collection}/${item.id}/`}>
+                {item.title}
+              </a>
             </li>
           ))}
         </ul>
-      </AdminLayout>,
+      </Layout>,
     );
   },
 
@@ -45,17 +55,17 @@ export const adminRoutes: Routes = {
 
   "/admin/:collection/:itemId/delete{/}?": async (request, _, params) => {
     return jsx(
-      <AdminLayout>
+      <Layout url={new URL(request.url)}>
         Are you sure???
-      </AdminLayout>,
+      </Layout>,
     );
   },
 
-  "/admin/:collection/:itemId{/}?": async (_request, _connInfo, params) => {
+  "/admin/:collection/:itemId{/}?": async (request, _connInfo, params) => {
     const item = await getCollection(params?.collection)?.find(params?.itemId);
 
     return jsx(
-      <AdminLayout>
+      <Layout url={new URL(request.url)}>
         <form method="post" action="update">
           <form-field>
             <label>
@@ -81,7 +91,7 @@ export const adminRoutes: Routes = {
           <button>Update</button>
           <button formAction="delete">Delete</button>
         </form>
-      </AdminLayout>,
+      </Layout>,
     );
   },
 };
@@ -94,3 +104,17 @@ function getCollection(collection: string) {
 
   return collections[collection];
 }
+
+// /admin/dashboard
+// /admin/messages
+// /admin/messages/:id
+// /admin/webmentions
+// /admin/webmentions/:id
+// /admin/webmentions/:id/edit
+// /admin/webmentions/:id/process
+// /admin/:collection
+// /admin/:collection/new
+// /admin/:collection/export
+// /admin/:collection/:item
+// /admin/:collection/:item/edit
+// /admin/:collection/:item/delete

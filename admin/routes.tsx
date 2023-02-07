@@ -3,6 +3,7 @@ import { h, json, jsx, serveStatic } from "sift";
 import type { Routes } from "sift";
 import { Page, Post } from "../models.ts";
 import { Layout } from "./layout.tsx";
+import { db } from "../db.ts";
 
 export const adminRoutes: Routes = {
   "/admin{/}?": (request) => {
@@ -18,11 +19,9 @@ export const adminRoutes: Routes = {
   }),
 
   "/admin/:collection{/}?": async (request, _connInfo, params) => {
-    const collection = getCollection(params?.collection);
-
-    if (!collection) return json("Oopsie");
-
-    const items = await collection.all();
+    const { rows: items } = await db.execute(
+      getQueryForCollection(params?.collection),
+    );
 
     return jsx(
       <Layout url={new URL(request.url)}>
@@ -95,6 +94,15 @@ export const adminRoutes: Routes = {
     );
   },
 };
+
+function getQueryForCollection(collection: string) {
+  const collections = {
+    pages: "select * from Page limit 10",
+    posts: "select * from Post limit 10",
+  };
+
+  return collections[collection];
+}
 
 function getCollection(collection: string) {
   const collections = {

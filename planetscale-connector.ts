@@ -43,6 +43,7 @@ export class PlanetScaleConnector implements Connector {
     queryDescription: QueryDescription,
   ): Promise<any | any[]> {
     const query = this._translator.translateToQuery(queryDescription);
+    console.log(query);
     const result = await this._client.execute(query);
 
     return result?.rows;

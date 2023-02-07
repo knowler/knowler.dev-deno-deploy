@@ -2,7 +2,7 @@
 import { h, jsx, serveStatic } from "sift";
 import type { Routes } from "sift";
 import { Layout } from "./layout.tsx";
-import { Page } from "../models.ts";
+import { db } from "../db.ts";
 
 export const publicRoutes: Routes = {
   "/": (request) =>
@@ -38,12 +38,16 @@ export const publicRoutes: Routes = {
     );
   },
   "/:slug{/}?": async (request, _, params) => {
-    const page = await Page.where({
-      slug: params?.slug,
-      published: true,
-    }).first();
+    const result = await db.execute(
+      "select * from Page where slug=? and published=true limit 1",
+      [params?.slug],
+    );
 
-    if (!page) return new Response("Not found!", { status: 404 });
+    if (result.rows.length === 0) {
+      return new Response("Not found!", { status: 404 });
+    }
+
+    const page = result.rows[0];
 
     return jsx(
       <Layout url={new URL(request.url)}>

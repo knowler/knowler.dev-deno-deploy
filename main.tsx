@@ -6,11 +6,6 @@ import { PlanetScaleConnector } from "./planetscale-connector.ts";
 import { adminRoutes } from "./admin/routes.tsx";
 import { publicRoutes } from "./public/routes.tsx";
 
-console.info(
-  globalThis.sessionStorage,
-  globalThis.localStorage,
-);
-
 const connector = new PlanetScaleConnector({
   url: Deno.env.get("DATABASE_URL"),
 });

@@ -11,16 +11,6 @@ export const publicRoutes: Routes = {
         <h1>Hello, World!</h1>
       </Layout>,
     ),
-  "/get-localstorage": async (request) => {
-    const item = localStorage.getItem("something");
-
-    return json({ item });
-  },
-  "/set-localstorage": async (request) => {
-    localStorage.setItem("something", "hello");
-
-    return json({ success: true });
-  },
   "/contact{/}?": async (request) => {
     if (request.method === "POST") {
       console.log(Object.fromEntries(await request.formData()));

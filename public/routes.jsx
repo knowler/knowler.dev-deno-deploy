@@ -1,10 +1,9 @@
 /** @jsx h */
-import { h, json, jsx, serveStatic } from "sift";
-import type { Routes } from "sift";
-import { Layout } from "./layout.tsx";
-import { db } from "../db.ts";
+import { h, jsx, serveStatic } from "sift";
+import { Layout } from "./layout.jsx";
+import { db } from "../db.js";
 
-export const publicRoutes: Routes = {
+export const publicRoutes = {
   "/": (request) =>
     jsx(
       <Layout url={new URL(request.url)}>

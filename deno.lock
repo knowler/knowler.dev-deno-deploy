@@ -566,11 +566,32 @@
   },
   "npm": {
     "specifiers": {
-      "@planetscale/database@^1.4": "@planetscale/database@1.5.0"
+      "@planetscale/database@^1.4": "@planetscale/database@1.5.0",
+      "@types/react": "@types/react@18.0.27"
     },
     "packages": {
       "@planetscale/database@1.5.0": {
         "integrity": "sha512-Qwh7Or1W5dB5mZ9EQqDkgvkDKhBBmQe58KIVUy0SGocNtr5fP4JAWtvZ6EdLAV6C6hVpzNlCA2xIg9lKTswm1Q==",
+        "dependencies": {}
+      },
+      "@types/prop-types@15.7.5": {
+        "integrity": "sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==",
+        "dependencies": {}
+      },
+      "@types/react@18.0.27": {
+        "integrity": "sha512-3vtRKHgVxu3Jp9t718R9BuzoD4NcQ8YJ5XRzsSKxNDiDonD2MXIT1TmSkenxuCycZJoQT5d2vE8LwWJxBC1gmA==",
+        "dependencies": {
+          "@types/prop-types": "@types/prop-types@15.7.5",
+          "@types/scheduler": "@types/scheduler@0.16.2",
+          "csstype": "csstype@3.1.1"
+        }
+      },
+      "@types/scheduler@0.16.2": {
+        "integrity": "sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==",
+        "dependencies": {}
+      },
+      "csstype@3.1.1": {
+        "integrity": "sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==",
         "dependencies": {}
       }
     }

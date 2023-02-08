@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run --allow-read=./public/static,./admin/static --allow-env --allow-net --watch main.tsx"
+    "dev": "deno run --allow-read=./public/static,./admin/static --allow-env --allow-net --watch main.js"
   },
   "importMap": "./import_map.json"
 }

@@ -1,10 +1,11 @@
+/// <reference types="./types.d.ts" />
+
 /** @jsx h */
 import { h, json, jsx, serveStatic } from "sift";
-import type { Routes } from "sift";
-import { Layout } from "./layout.tsx";
-import { db } from "../db.ts";
+import { Layout } from "./layout.jsx";
+import { db } from "../db.js";
 
-export const adminRoutes: Routes = {
+export const adminRoutes = {
   "/admin{/}?": (request) => {
     return jsx(
       <Layout url={new URL(request.url)}>
@@ -18,7 +19,7 @@ export const adminRoutes: Routes = {
   }),
 
   "/admin/:collection{/}?": async (request, _connInfo, params) => {
-    const { collection } = params as { collection: string };
+    const { collection } = params;
 
     const { rows: items } = await db.execute(
       `select * from ${getTableForCollection(collection)} limit 10`,
@@ -41,10 +42,7 @@ export const adminRoutes: Routes = {
 
   "/admin/:collection/:itemId/update{/}?": async (request, _, params) => {
     if (request.method === "POST") {
-      const { collection, itemId } = params as {
-        collection: string;
-        itemId: string;
-      };
+      const { collection, itemId } = params;
 
       const formData = await request.formData();
 
@@ -124,20 +122,11 @@ export const adminRoutes: Routes = {
   },
 };
 
-function getTableForCollection(collection: string) {
+function getTableForCollection(collection) {
   const collections = {
     pages: "Page",
     posts: "Posts",
   };
-  return collections[collection];
-}
-
-function getQueryForCollection(collection: string) {
-  const collections = {
-    pages: "select * from Page",
-    posts: "select * from Post",
-  };
-
   return collections[collection];
 }
 

@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h } from "sift";
-import { NavLink as UnboundNavLink } from "../components/nav-link.tsx";
+import { NavLink as UnboundNavLink } from "../components/nav-link.jsx";
 
 export function Layout({ children, head, url }) {
   const NavLink = UnboundNavLink.bind(url);

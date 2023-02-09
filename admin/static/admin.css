@@ -1,9 +1,24 @@
 html {
   color-scheme: dark;
+  font-family: system-ui;
 }
 
 form-field {
   display: block;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+header nav ul {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  margin-block: 0;
+  padding-inline-start: 0;
 }
 
 a[aria-current="page"] {

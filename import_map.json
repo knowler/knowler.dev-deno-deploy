@@ -1,6 +1,12 @@
 {
   "imports": {
+    "~/": "./app/",
     "@planetscale/database": "https://esm.sh/@planetscale/database@1.5.0",
-    "sift": "https://deno.land/x/sift@0.6.0/mod.ts"
+    "preact": "npm:preact",
+    "preact/hooks": "npm:preact/hooks",
+    "preact-render-to-string": "npm:preact-render-to-string",
+    "sift": "https://deno.land/x/sift@0.6.0/mod.ts",
+    "std/http": "https://deno.land/std@0.177.0/http/mod.ts",
+    "uuid": "https://deno.land/std@0.84.0/uuid/mod.ts"
   }
 }
